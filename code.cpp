@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <conio.h>
+
 using namespace std;
 
 int Number_Generator(int min, int max)
 {
-    int ans = min + (rand() % max - min + 1);
+    int ans = min + rand() % (max - min + 1);
     return ans;
 }
 
@@ -19,9 +20,10 @@ void Guessing(int ans, int diff, int min, int max)
     if (diff == 3)
         chances = 3;
 
-    cout << "You have " << chances << " to guess the number between " << min << " and " << max << endl;
+    cout << "You have " << chances << " chances to guess the number between " << min << " and " << max << endl;
     cout << "Good Luck :)" << endl;
-
+    cout << "Press any key to continue..." << endl;
+    getch();
     system("cls");
     for (int i = 1; i <= chances; i++)
     {
@@ -30,7 +32,7 @@ void Guessing(int ans, int diff, int min, int max)
         cin >> guess;
         if (guess == ans)
         {
-            cout << "Congratualations You guessed the number correctly.\nPress any key to Exit" << endl;
+            cout << "Congratulations! You guessed the number correctly.\nPress any key to exit" << endl;
             getch();
             break;
         }
@@ -46,11 +48,16 @@ void Guessing(int ans, int diff, int min, int max)
         {
             cout << "Entered Number is Smaller than the EXPECTED number.\nPress any key to continue" << endl;
         }
+
+        if (i == chances)
+        {
+            cout << "OOPS You ran out of Chances\nThe Number was " << ans << "\nBetter Luck Next Time\nGame Over\nGG.\nPress any key to exit" << endl;
+            getch();
+        }
         else
         {
-            cout << "OOPS You ran out of Chances\nThe Number was" << ans << "\nBetter Luck Next Time\nGame Over\nGG.\nPress any key to Exit" << endl;
+            getch();
         }
-        getch();
     }
 }
 
@@ -100,11 +107,11 @@ MENU:
         cout << "<=============> Difficulty Level <=============> " << endl;
     LEVEL:
         cout << "1. Easy   (12 Guesses)" << endl;
-        cout << "2. Normal ( 6 Guesses)" << endl;
-        cout << "3. Hard   ( 3 Guesses)" << endl;
+        cout << "2. Normal (6 Guesses)" << endl;
+        cout << "3. Hard   (3 Guesses)" << endl;
         cout << "\nEnter Choice = ";
         cin >> diff;
-        if (diff < 0 || diff > 3)
+        if (diff < 1 || diff > 3)
         {
             cout << "Invalid Difficulty Level !!!\nPress any key to continue" << endl;
             goto LEVEL;
@@ -123,4 +130,5 @@ MENU:
         system("cls");
         goto MENU;
     }
+    return 0;
 }
